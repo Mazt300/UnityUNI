@@ -43,7 +43,7 @@ public class Boss : FSM {
 		curspeed = 6.0f;
 		// Es el tiempo trasncurrido, se encuentra en fsm ya que boss se hereda de esta clase.
 		elapsedTime = 0.0f;
-		shootRate = 0.5f;
+		shootRate = 4f;
 		// Esta instancia busca al objeto player
 		GameObject objPlayer = GameObject.FindGameObjectWithTag("Player");
 		// Accedemos a la propiedad transform del "Player".
@@ -93,7 +93,7 @@ public class Boss : FSM {
 			animador.SetBool ("Pego",Pego);
 			estado= fsmState.retroceder;	
 		}
-		if (Vector2.Distance(transform.position, playerTransform.position) == 14.0f){
+		if (Vector2.Distance(transform.position, playerTransform.position) == 16.0f){
 			curspeed=0;
 		}
 	}
@@ -111,8 +111,6 @@ public class Boss : FSM {
 			estado = fsmState.stands;
 			Disparo=true;
 			animador.SetBool("Disparo",Disparo);
-			Disparo = false;
-			animador.SetBool ("Disparo", Disparo);
 			ShootBullet();
 		}
 	}
@@ -124,8 +122,9 @@ public class Boss : FSM {
 		ataque = false;
 		animador.SetBool ("Cerca",ataque);
 		animador.SetBool ("Pego",Pego);
-
-		if(Vector2.Distance(transform.position, playerTransform.position) <=15.0f){
+		if(Vector2.Distance(transform.position, playerTransform.position) <=16.0f){
+			Disparo = false;
+			animador.SetBool ("Disparo", Disparo);
 			estado = fsmState.persecusion;
 		}
 		
